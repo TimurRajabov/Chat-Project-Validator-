@@ -1,0 +1,28 @@
+﻿@page "/account/login"
+@inherits LoginBase
+
+
+
+<h3>Login</h3>
+
+   <div>
+        <label>Username</label>
+        <InputText @bind-Value="@Model.Username"></InputText>
+    </div>
+    <br/>
+    <div>
+        <label>Password</label>
+        <InputText @bind-Value="@Model.Password"></InputText>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" @onclick="LoginClicked">Login</button>
+
+
+
+
+
+@code {
+    
+
+}
+

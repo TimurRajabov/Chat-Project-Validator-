@@ -1,0 +1,26 @@
+﻿@page "/account/users"
+@using Microsoft.AspNetCore.Authorization
+@inherits UsersBase
+@attribute [Authorize]
+
+
+
+@if (Users is not null || Users?.Count > 0)
+{
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+        </tr>
+        @foreach (var user in Users)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Username</td>
+            </tr>
+        }
+    </table>
+}
+

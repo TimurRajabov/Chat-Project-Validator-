@@ -1,0 +1,61 @@
+﻿@using System.Security.Claims
+@using Chat.Client.Services
+@inject AuthenticationStateProvider StateProvider
+
+
+<CascadingAuthenticationState>
+    
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)">
+                <Authorizing>
+                    <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+                </Authorizing>
+                <NotAuthorized>
+                    @{
+                      
+                        NavigationManager.NavigateTo($"/account/login");
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            
+           
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+
+@code
+{
+    bool isAuthorized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+
+
+    private async Task CheckUserLogin()
+    {
+        var stateProvider = (CustomAuthHandler)StateProvider;
+
+        var state = await stateProvider.GetAuthenticationStateAsync();
+
+        var user = state.User;
+
+        var userId = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
+
+        if (string.IsNullOrEmpty(userId))
+            NavigationManager.NavigateTo("/account/login");
+    }
+
+}
+
+
+

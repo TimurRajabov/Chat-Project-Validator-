@@ -1,0 +1,76 @@
+﻿@using System.ComponentModel
+@using System.Security.Claims
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider StateProvider
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            @if (isAuthorized)
+            {
+                <button disabled class="btn btn-outline-danger" >@_username</button>
+                <br/>
+                <button type="submit" class="btn btn-outline-danger" @onclick="LogOut">Log out</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-outline-primary" @onclick="Login">Login</button>
+            }
+            
+
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+
+@code{
+    bool isAuthorized { get; set; }
+    
+    string _username { get; set; }
+
+    private async Task LogOut()
+    {
+        await StorageService.DeleteToken();
+
+        NavigationManager.Refresh(true);
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var token = await StorageService.GetToken();
+
+
+        isAuthorized = !string.IsNullOrEmpty(token);
+
+        if (isAuthorized)
+        {
+            var stateProvider = (CustomAuthHandler)StateProvider;
+
+            var state = await stateProvider.GetAuthenticationStateAsync();
+
+            var user = state.User;
+
+
+            _username = user.Claims.
+                First(c => c.Type == ClaimTypes.Name).Value;
+
+
+        }
+
+    }
+
+    private void Login()
+    {
+
+        NavigationManager.NavigateTo("/account/login");
+    }
+
+}

@@ -1,0 +1,122 @@
+Chat Application
+{
+	Entities
+	{
+		User,
+		Message,
+		Chat,
+		FriendRequest,
+		Friend,
+		Content
+	}
+
+}
+
+
+
+API ENDPOINTS
+
+USERS 
+{
+
+	[GET]
+	/api/users  => get all users
+
+	[POST]
+	/api/users/register
+
+	[POST]
+	/api/users/login
+
+	[GET]
+	/api/users/user_id  => get user by id
+
+	[PUT]
+	/api/users/user_id = > update user 
+
+	[DELETE]
+	/api/users/user_id => 
+
+	*/
+	[POST]
+	/api/users  => add user
+	*/
+}
+
+CHATS
+{
+	[GET]
+	/api/chats => get all chats (admin action)
+
+	[GET]
+	/api/users/user_id/chats => get all chats which related to the user
+
+	[POST]
+	/api/users/user_id/chats => add or enter chat
+
+	[PUT]
+	/api/users/user_id/chats/chat_id => update chat
+
+	[DELETE]
+	/api/users/user_id/chats/chat_id => delete chat
+
+}
+
+Messages
+{
+	[GET]
+	/api/users/user_id/chats/chat_id/messages => get all messages which related to the chat
+
+	[POST]
+	/api/users/user_id/chats/chat_id/messages/send-message => send message to the chat
+
+	[PUT]
+	/api/users/user_id/chats/chat_id/messages/message_id => edit the message
+
+	[DELETE]
+	/api/users/user_id/chats/chat_id/messages/message_id => delete the message
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+User{
+	Maruf,
+	id : asd123
+	User_Chat {
+		djfhkjdf,
+		userId : asd123
+		chatId : qwe123
+	}
+}
+
+
+User{
+	Timur,
+	id : asd124
+	User_Chat {
+		djfhkjdf,
+		userId : asd124
+		chatId : qwe123
+	}
+}
+
+chat{
+	id : qwe123,
+	messages
+}

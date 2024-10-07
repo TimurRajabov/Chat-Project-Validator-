@@ -1,0 +1,28 @@
+﻿@page "/see-chat/{ToUserId:guid}"
+@attribute [Authorize]
+@inherits  SeeChatBase
+
+
+<h1>ToUserId : @ToUserId</h1>
+
+
+<input @bind="Text"/>
+<button class="btn btn-primary" type="submit" @onclick="SendMessage">Send</button>
+
+
+
+@if (Messages.Count > 0)
+{
+    foreach (var message in Messages)
+    {
+        <h3>Message : @message.Text</h3>
+    }
+}
+else
+{
+    <h2> Hozircha sizda habarlar yoq</h2>
+}
+
+
+
+

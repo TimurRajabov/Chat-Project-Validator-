@@ -1,0 +1,65 @@
+﻿@page "/user-chats"
+@attribute [Authorize]
+@inherits UserChatsBase
+
+
+@if (Chats.Count > 0)
+{
+  <ChattingPage Chats="Chats"></ChattingPage>
+}
+else
+{
+    <h1>Hozircha sizda chatlar mavjud emas</h1>
+}
+
+
+
+
+
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+</style>
+
+
+
+@*@if (Chats.Count > 0)
+{
+    
+    <h1>User chats</h1>
+    <table>
+        <tr>
+            <th>Chat name</th>
+            <th>See chat</th>
+        </tr>
+        @foreach (var chat in Chats)
+        {
+            <tr>
+                <td>@chat.ChatNames[0]</td>
+                <td>
+                    <button class="btn btn-primary" 
+                            @onclick="async () => {
+                                await SeeChat(chat.Id);
+                            }">See chat</button>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h1>Hozircha sizda chatlar mavjud emas</h1>
+}*@
